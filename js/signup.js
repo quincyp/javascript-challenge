@@ -29,7 +29,16 @@ function onReady() {
 	 	stateElem.appendChild(stateArray);
  	}
 
+ 	document.addEventListener('change', showOtherOcc);
 } 
+
+function showOtherOcc() {
+	var occ = document.getElementById('occupation');
+	var occupationOther = document.getElementsByName('occupationOther')[0]; 
+	if(occ.value == 'other') {
+		occupationOther.style.display = 'block';
+	}
+}
 
 //toggle display none for other... extra field
 //birthday calculation; 
