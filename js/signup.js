@@ -30,7 +30,51 @@ function onReady() {
  	}
 
  	document.addEventListener('change', showOtherOcc);
+	var cancel = document.getElementById('cancelButton');
+ 	cancel.addEventListener('click', confirmLeave);
+
+ 	/*
+	document.getElementById('firstName').value = 
+	document.getElementById('lastName').value = 
+	document.getElementById('address1').value = 
+	document.getElementById('city').value = 
+	document.getElementById('state').value = 
+	document.getElementById('zip').value = 
+	document.getElementById('birthdate').value = 
+
+	
+	document.getElementsByNames('zip')[0];
+	
+
+	document.getElementById('birthdate');
+	document.getElementById('birthdateMessage');
+	var bDay = new Date();
+	document.getElementById("demo").innerHTML = "Paragraph changed!";
+
+
+	document.getElementById("myDIV").className = "mystyle";
+	class='form-control invalid';
+
+
+	occupationOther 
+
+	Function onSubmit(evt) {
+		Var reqField = this.elements['someRequiredField'];
+		If (0 == reqField.value.trim().length) {
+			reqField.className = 'invalid-field';
+		}
+		...
+	}
+ 	*/
 } 
+
+function confirmLeave() {
+	var buttonLeave = document.getElementById('cancelButton');
+	var message = window.confirm("Are you sure you want to go?");
+	if(message) {
+		window.location.href = 'http://google.com';
+	}
+}
 
 function showOtherOcc() {
 	var occ = document.getElementById('occupation');
