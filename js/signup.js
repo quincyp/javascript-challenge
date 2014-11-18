@@ -96,7 +96,7 @@ function onReady() {
 	}
 
 
-	//bdayElem.addEventListener('change', validateBday);
+	//bdayElem.addEventListener('invalid', validateAll(valid, BirthDate));
 	//Validates Age is minimum 13 years old
 	function validateBday(birthdate) {
 		var today = new Date();
