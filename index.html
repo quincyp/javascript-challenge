@@ -74,7 +74,9 @@
                         <input type="date" name="birthdate" id="birthdate" class="form-control" placeholder="your birthdate">
                     </div>
                     <div class="col-sm-5">
-                        <p id="birthdateMessage" class="error-message"></p>
+                        <p id="birthdateMessage" onchange ="validateBday()" class="error-message">
+                        <!--User is only 12 years old! Must be 13 to signup.-->
+                        </p>
                     </div>
                 </div>
 
