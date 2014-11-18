@@ -4,15 +4,15 @@
 /* onReady() Called when the DOM is loaded and ready for manipulation.*/
 function onReady() {
 	var form = document.getElementById('signup');
-	//form.addEventListener('submit', onSubmit); //below
   	var stateElem = form.elements['state'];
   	var occElem = form.elements['occupation'];
 	var cancel = document.getElementById('cancelButton');
 	var bdayElem = form.elements['birthdate'];
 	
+	//Options function for states list
 	stateOpt(stateElem);
 
-
+	//Listens for change function of occupation/other
  	occElem.addEventListener('change', function() {
  		if(this.value == 'other') {
  			form.elements['occupationOther'].style.display = 'block';
@@ -21,7 +21,7 @@ function onReady() {
  		}
  	});
 
-
+ 	//Listens for cancel and sees confirmation page
  	cancel.addEventListener('click', function() {
  		var message = window.confirm("Are you sure you want to go?");
 		if(message) {
@@ -29,16 +29,17 @@ function onReady() {
 		}
 	});
 
-
+ 	//Checks if submitting
  	form.addEventListener('submit', onSubmit);
  	function onSubmit(evt) {
-		var valid; //CHECK
+		var valid;
 		try{
 			valid = validateForm(this);
 		} catch(exception) {
 			valid =false;
 		}
 
+		//Prevents submitting if not valid
 		if (!valid && evt.preventDefault) {
 			evt.preventDefault();
 		}
@@ -47,41 +48,36 @@ function onReady() {
 		return valid;
 	}
 
-						//!!var validZip = validateZip(field);		check this later		!!
+	//Validates form			
 	function validateForm(form) {
 		var requiredFields = ['firstName', 'lastName', 'address1', 'city', 'state'];
 		
-
+		//Adds occupation other to validation list
 		if (form.elements['occupation'].value == 'other') {
 			requiredFields.push('occupationOther');
 		}
 
-		//requiredFields.forEach(validateRequiredField, form);
+		//Validates through list
 		var fieldStatus = true;
 		for (var i = 0; i < requiredFields.length; i++) {
 			fieldStatus &= validateRequiredField(form.elements[requiredFields[i]]);
 		}
 		
+		//Validates specifically for special cases zipcode and birthdate
 		fieldStatus &= validateZip(form.elements['zip']);
 		fieldStatus &= validateBday(form.elements['birthdate']);
 
 		return fieldStatus;
 	}
 
+	//Validates fields for empty/spaces
 	function validateRequiredField(field) {
 		var valid = field.value.trim().length > 0;
 		validateAll(valid, field);
 		return valid;
-		/*
-		if(0 == this[field].value.trim().length) {
-			this[field].className = 'invalid-field form-control';
-			return false;
-		} else {
-			this[field].className = 'form-control';
-			return true;
-		}*/	
 	}
 
+	//Validates all by using classNames
 	function validateAll(valid, field) {
 		if(valid) {
 			field.className = 'form-control';
@@ -90,6 +86,7 @@ function onReady() {
 		}
 	}
 
+	//Validates Zip code (only digits)
 	function validateZip(zip) {
 		var zipCode = zip.value;
 		var zipRegExp = new RegExp('^\\d{5}$');
@@ -100,6 +97,7 @@ function onReady() {
 
 
 	//bdayElem.addEventListener('change', validateBday);
+	//Validates Age is minimum 13 years old
 	function validateBday(birthdate) {
 		var today = new Date();
 		var bday = new Date(birthdate.value);
@@ -110,9 +108,6 @@ function onReady() {
 			valid = true;
 		} else if((years == 13) && (today.getMonth() == bday.getUTCMonth()) && (today.getDate() == bday.getUTCDate())) {
 			valid = true;
-			//11/17/2014
-			//11/17/2001
-			//11/18/2001
 		} else {
 			valid = false;
 			//document.getElementById("birthdateMessage").innerHTML = "User is only 12 years old! Must be 13 to signup.";
@@ -123,8 +118,10 @@ function onReady() {
 	}
 } 
 
-
+//Listens to the DOM for ready
 document.addEventListener('DOMContentLoaded', onReady);
+
+//Populates state options list
 function stateOpt(stateElem){
 	var i;
 	var stateArray;
@@ -136,54 +133,3 @@ function stateOpt(stateElem){
 	 	stateElem.appendChild(stateArray);
 	 }
 }
-
-	
- 	/*
-	document.getElementById('birthdate');
-	document.getElementById('birthdateMessage');
-	var bDay = new Date();
-	document.getElementById("demo").innerHTML = "Paragraph changed!";
-			
-			http://www.w3schools.com/jsref/jsref_obj_date.asp
-			var dateEntered = Date.parse(form[birthday].value); //string
-			var sth= new Date(dateEntered);						//date object
-			sth.getDate() getFullYear() getMonth()
-			var currentDate = new Date();
-			currentDate.getDate() getFullYear() getMonth()
-
-			if(sth > currentDate)
-
-	document.getElementById("myDIV").className = "mystyle";
-	class='form-control invalid';
-
-	occupationOther 
- 	*/
-
-
-
-//toggle display none for other... extra field
-//birthday calculation; 
-
-/*
-	var firstName = document.getElementById('firstName').value;
-		document.getElementById('lastName').value = 
-		document.getElementById('address1').value = 
-		document.getElementById('city').value = 
-		document.getElementById('state').value = 
-		document.getElementById('zip').value = 
-		document.getElementById('birthdate').value = 
-*/
-
-/*
-function showOtherOcc() {
-	var occ = document.getElementById('occupation');
-	var occupationOther = document.getElementsByName('occupationOther')[0]; 
-	if(occ.value == 'other') {
-		occupationOther.style.display = 'block';
-	}
-}*/
-
-/*function confirmLeave() {
-	var buttonLeave = document.getElementById('cancelButton');
-	
-}*/
